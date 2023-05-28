@@ -73,13 +73,17 @@ class Spot:
             self.neighbors.append(grid[self.row][self.col-1])
     def __lt__(self, other):
         return False
+    
 def h(p1,p2, distance_type):
     x1,y1 = p1
     x2, y2 = p2
-    #return max((x1 - x2),(y1 - y2)) #Chebyshev distance
     if distance_type == "euclidean":
         return math.sqrt((x1 - x2)**2 + (y1 - y2)**2)    
-    return abs(x1 - x2) + abs(y1 - y2)
+    elif distance_type=="chebyshev":
+        return max((x1 - x2),(y1 - y2)) #Chebyshev distance
+    else:
+        return abs(x1 - x2) + abs(y1 - y2) # Manhattan Distance
+    
 def reconstruct_path(came_from, current, draw):
     spot_count = 0
     while current in came_from:
